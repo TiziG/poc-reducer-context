@@ -1,26 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CommentList from './CommentList';
-import { CommentId, ProductId, ProductType } from '../Types';
+import { ADD_COMMENT, ADD_TO_CART, GlobalStateContext } from '../App';
+import { ProductType } from '../Types';
 
 type Props = {
   product: ProductType;
-  onAddComment: (productId: ProductId, comment: string) => void;
-  onDeleteComment: (commentId: CommentId) => void;
-  onAddToCart: (productId: ProductId) => void;
 };
 
-const Product: React.FC<Props> = ({
-  product,
-  onAddComment,
-  onAddToCart,
-  onDeleteComment,
-}) => {
+const Product: React.FC<Props> = ({ product }) => {
+  const { dispatch } = useContext(GlobalStateContext);
 
   const addToCart = () => {
-    onAddToCart(product.id);
+    dispatch({ type: ADD_TO_CART, productId: product.id });
   };
   const addComment = () => {
-    onAddComment(product.id, 'A new comment');
+    console.log('addComment clicked')
+    dispatch({
+      type: ADD_COMMENT,
+      productId: product.id,
+      comment: 'A new comment',
+    });
   };
 
   return (
@@ -31,9 +30,7 @@ const Product: React.FC<Props> = ({
         <button onClick={() => addToCart()}>Add to Cart</button>
       </div>
       <button onClick={() => addComment()}>Add Comment</button>
-      <CommentList
-        comments={product.comments}
-        onDeleteComment={onDeleteComment} />
+      <CommentList comments={product.comments} />
     </div>
   );
 };

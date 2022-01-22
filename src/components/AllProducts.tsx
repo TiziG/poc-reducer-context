@@ -1,27 +1,13 @@
 import ProductList from './ProductList';
-import React from 'react';
-import { CommentId, ProductId, ProductType } from '../Types';
+import React, { useContext } from 'react';
+import { GlobalStateContext } from '../App';
 
-type Props = {
-  products: ProductType[];
-  onAddComment: (productId: ProductId, comment: string) => void;
-  onAddToCart: (productId: ProductId) => void;
-  onDeleteComment: (commentId: CommentId) => void;
-};
-
-const AllProducts: React.FC<Props> = ({
-  products,
-  onAddComment,
-  onAddToCart,
-  onDeleteComment,
-}) => {
+const AllProducts: React.FC = () => {
+  const { state: { products } } = useContext(GlobalStateContext);
   return (
     <div className="All-Products">
       <h2>All Products:</h2>
-      <ProductList products={products}
-                   onAddComment={onAddComment}
-                   onDeleteComment={onDeleteComment}
-                   onAddToCart={onAddToCart} />
+      <ProductList products={products} />
     </div>
   );
 };

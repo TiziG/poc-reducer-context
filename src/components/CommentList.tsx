@@ -4,13 +4,9 @@ import { CommentType } from '../Types';
 
 type Props = {
   comments: CommentType[];
-  onDeleteComment: (id: number) => void;
 };
 
-const commentList: React.FC<Props> = ({
-  comments,
-  onDeleteComment,
-}: Props) => (
+const commentList: React.FC<Props> = ({ comments }: Props) => (
   <>
     {comments.length > 0 && (
       <div className="Comment-container">
@@ -18,9 +14,7 @@ const commentList: React.FC<Props> = ({
         <ul>
           {comments.map(comment => (
             <li key={comment.id}>
-              <CommentComponent
-                comment={comment}
-                onDeleteComment={onDeleteComment} />
+              <CommentComponent comment={comment} />
             </li>
           ))}
         </ul>

@@ -1,17 +1,16 @@
-import React from 'react';
-import { ProductId, ProductType } from '../Types';
+import React, { useContext } from 'react';
+import { GlobalStateContext, REMOVE_FROM_CART } from '../App';
+import { ProductType } from '../Types';
 
 type Props = {
   product: ProductType;
-  onRemoveFromCart: (product: ProductId) => void;
 };
 
-const ProductInCart: React.FC<Props> = ({
-  product,
-  onRemoveFromCart,
-}) => {
+const ProductInCart: React.FC<Props> = ({ product }) => {
+  const { dispatch } = useContext(GlobalStateContext);
+
   const remove = () => {
-    onRemoveFromCart(product.id);
+    dispatch({ type: REMOVE_FROM_CART, productId: product.id });
   };
 
   return (

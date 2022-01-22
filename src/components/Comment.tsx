@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { CommentType } from '../Types';
+import { GlobalStateContext } from '../App';
 
 type Props = {
   comment: CommentType;
-  onDeleteComment: (id: number) => void;
 };
 
-const Comment: React.FC<Props> = ({
-  comment,
-  onDeleteComment,
-}: Props): JSX.Element => {
+const Comment: React.FC<Props> = ({ comment }: Props): JSX.Element => {
+  const {dispatch} = useContext(GlobalStateContext);
   const onDelete = (comment: CommentType): void => {
-    onDeleteComment(comment.id);
+    dispatch({
+      type: 'DELETE_COMMENT',
+      commentId: comment.id,
+    });
   };
 
   return (
