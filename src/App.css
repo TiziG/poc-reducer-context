@@ -39,9 +39,10 @@
 }
 
 .Main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 3em;
+    padding: 1em;
 }
 
 .Main > * {
@@ -73,6 +74,9 @@
 
 .Product > h3 {
     flex-grow: 1;
+}
+.Product > .Price {
+    white-space: nowrap;
 }
 
 .Comment-container {

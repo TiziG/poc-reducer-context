@@ -1,13 +1,17 @@
-import Product from '../domain-model/Product';
 import React from 'react';
+import { ProductId, ProductType } from '../Types';
 
 type Props = {
-  product: Product;
+  product: ProductType;
+  onRemoveFromCart: (product: ProductId) => void;
 };
 
-const productInCart: React.FC<Props> = ({ product }) => {
+const ProductInCart: React.FC<Props> = ({
+  product,
+  onRemoveFromCart,
+}) => {
   const remove = () => {
-    //todo remove product from cart
+    onRemoveFromCart(product.id);
   };
 
   return (
@@ -21,4 +25,4 @@ const productInCart: React.FC<Props> = ({ product }) => {
   );
 };
 
-export default productInCart;
+export default ProductInCart;

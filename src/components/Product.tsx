@@ -1,17 +1,26 @@
-import Product from '../domain-model/Product';
 import React from 'react';
 import CommentList from './CommentList';
+import { CommentId, ProductId, ProductType } from '../Types';
 
 type Props = {
-  product: Product;
+  product: ProductType;
+  onAddComment: (productId: ProductId, comment: string) => void;
+  onDeleteComment: (commentId: CommentId) => void;
+  onAddToCart: (productId: ProductId) => void;
 };
 
-const product: React.FC<Props> = ({ product }) => {
+const Product: React.FC<Props> = ({
+  product,
+  onAddComment,
+  onAddToCart,
+  onDeleteComment,
+}) => {
+
   const addToCart = () => {
-    //todo add product to cart
+    onAddToCart(product.id);
   };
   const addComment = () => {
-    //todo add comment to product
+    onAddComment(product.id, 'A new comment');
   };
 
   return (
@@ -22,9 +31,11 @@ const product: React.FC<Props> = ({ product }) => {
         <button onClick={() => addToCart()}>Add to Cart</button>
       </div>
       <button onClick={() => addComment()}>Add Comment</button>
-      <CommentList comments={product.comments} />
+      <CommentList
+        comments={product.comments}
+        onDeleteComment={onDeleteComment} />
     </div>
   );
 };
 
-export default product;
+export default Product;

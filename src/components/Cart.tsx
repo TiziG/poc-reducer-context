@@ -1,22 +1,30 @@
-import Product from '../domain-model/Product';
 import ProductList from './ProductList';
 import React from 'react';
-import Comment from '../domain-model/Comment';
+import { CartEntryType, ProductId, ProductType } from '../Types';
 
-//Todo get products in cart
-const products: Product[] = [
-  new Product(2, 'Peach', 2, []),
-  new Product(3, 'The Godfather: The Coppola Restoration - BluRay Set', 75, [
-    new Comment(1, 'Niiiice'),
-  ]),
-];
+type Props = {
+  products: ProductType[];
+  cartEntries: CartEntryType[];
+  onRemoveFromCart: (productId: ProductId) => void;
+};
 
 
-const cart: React.FC = () => (
-  <div className="Cart">
-    <h2>Cart:</h2>
-    <ProductList products={products} isCart />
-  </div>
-);
+const Cart: React.FC<Props> = ({
+  products,
+  cartEntries,
+  onRemoveFromCart,
+}) => {
+  const cartProductIds = cartEntries.map(entry => entry.productId);
+  const cartProducts = products.filter(p => cartProductIds.includes(p.id));
+  return (
+    <div className="Cart">
+      <h2>Cart:</h2>
+      <ProductList
+        products={cartProducts}
+        isCart
+        onRemoveFromCart={onRemoveFromCart} />
+    </div>
+  );
+};
 
-export default cart;
+export default Cart;

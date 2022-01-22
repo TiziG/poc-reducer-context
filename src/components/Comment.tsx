@@ -1,21 +1,25 @@
-import Comment from '../domain-model/Comment';
 import React from 'react';
+import { CommentType } from '../Types';
 
 type Props = {
-  comment: Comment;
+  comment: CommentType;
+  onDeleteComment: (id: number) => void;
 };
 
-const comment: React.FC<Props> = ({ comment }: Props): JSX.Element => {
-  const onDelete = (comment: Comment): void => {
-    // todo delete comment
+const Comment: React.FC<Props> = ({
+  comment,
+  onDeleteComment,
+}: Props): JSX.Element => {
+  const onDelete = (comment: CommentType): void => {
+    onDeleteComment(comment.id);
   };
 
   return (
     <div className="Comment">
-      <p>{comment.text}</p>
+      <p>{comment.id}: {comment.text}</p>
       <button onClick={() => onDelete(comment)}>Delete</button>
     </div>
   );
 };
 
-export default comment;
+export default Comment;

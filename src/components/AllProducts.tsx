@@ -1,23 +1,29 @@
-import Product from '../domain-model/Product';
 import ProductList from './ProductList';
 import React from 'react';
-import Comment from '../domain-model/Comment';
+import { CommentId, ProductId, ProductType } from '../Types';
 
-//Todo get all Products
-const products: Product[] = [
-  new Product(1, 'Banana', 3, []),
-  new Product(2, 'Peach', 2, []),
-  new Product(3, 'The Godfather: The Coppola Restoration - BluRay Set', 75, [
-    new Comment(1, 'Sweeet'),
-    new Comment(1, 'Niiiice'),
-  ]),
-];
+type Props = {
+  products: ProductType[];
+  onAddComment: (productId: ProductId, comment: string) => void;
+  onAddToCart: (productId: ProductId) => void;
+  onDeleteComment: (commentId: CommentId) => void;
+};
 
-const allProducts: React.FC = () => (
-  <div className="All-Products">
-    <h2>All Products:</h2>
-    <ProductList products={products} />
-  </div>
-);
+const AllProducts: React.FC<Props> = ({
+  products,
+  onAddComment,
+  onAddToCart,
+  onDeleteComment,
+}) => {
+  return (
+    <div className="All-Products">
+      <h2>All Products:</h2>
+      <ProductList products={products}
+                   onAddComment={onAddComment}
+                   onDeleteComment={onDeleteComment}
+                   onAddToCart={onAddToCart} />
+    </div>
+  );
+};
 
-export default allProducts;
+export default AllProducts;
